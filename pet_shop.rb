@@ -84,6 +84,16 @@ end
 #   end
 # end
 
+
+
 def sell_pet_to_customer(hash, pet, customer)
-  return customer[:pets].push(pet), hash[:pets].delete(pet),hash[:admin][:pets_sold] += 1, customer[:cash] -= pet[:price], hash[:admin][:total_cash] += pet[:price]
+  for animal in hash[:pets]
+    if animal == pet && customer[:cash] >= animal[:price]
+    customer[:pets].push(animal)
+    hash[:pets].delete(animal)
+    hash[:admin][:pets_sold] += 1
+    customer[:cash] -= animal[:price]
+    hash[:admin][:total_cash] += animal[:price]
+    end
+  end
 end
